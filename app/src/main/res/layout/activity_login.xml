@@ -26,11 +26,11 @@
         android:layout_marginBottom="10dp"/>
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/cardnumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
+        android:hint="Card number"
+        android:inputType="number"
         android:padding="20dp"
         android:background="@drawable/edit_text_background"
         android:layout_marginBottom="16dp" />
@@ -57,10 +57,12 @@
         android:padding="16dp" />
 
     <TextView
+        android:id="@+id/registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Don't have an account? Sign up"
         android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
         android:layout_marginTop="36dp"
         android:layout_marginBottom="200dp"/>
 
