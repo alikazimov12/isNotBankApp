@@ -35,6 +35,8 @@ class RegisterActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString().trim()
             val confirmPassword = confirmPasswordEditText.text.toString().trim()
 
+            val balance = 0.00
+
             if (fullName.isEmpty() || email.isEmpty() || cardNumber.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -45,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            addUser(this, email, password, cardNumber, fullName)
+            addUser(this, email, password, cardNumber, fullName, balance)
 
             Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LoginActivity::class.java))
@@ -53,9 +55,9 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun addUser(context: Context, email: String, password: String, cardNumber: String, fullname: String) {
+    private fun addUser(context: Context, email: String, password: String, cardNumber: String, fullname: String, balance: Double) {
         val users = getUsers(context).toMutableList()
-        val newUser = "$email:$password:$cardNumber:$fullname"
+        val newUser = "$email:$password:$cardNumber:$fullname:$balance"
         users.add(newUser)
         saveUsers(context, users)
     }

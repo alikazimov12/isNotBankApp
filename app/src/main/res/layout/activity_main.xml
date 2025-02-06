@@ -114,6 +114,18 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/recipient_card_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Recipient Card Number"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:background="@drawable/edit_text_background"
+        android:padding="18dp"
+        android:visibility="gone" />
+
+
+    <EditText
         android:id="@+id/amount_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -121,7 +133,7 @@
         android:textSize="25sp"
         android:padding="18dp"
         android:background="@drawable/edit_text_background"
-        android:layout_marginTop="42dp"/>
+        android:layout_marginTop="12dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

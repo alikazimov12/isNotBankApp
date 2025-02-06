@@ -37,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("cardNumber", user["cardNumber"])
+                    intent.putExtra("balance", user["balance"])
                     startActivity(intent)
                 } else {
                     Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show()
@@ -62,12 +63,13 @@ class LoginActivity : AppCompatActivity() {
         return if (usersString.isNotEmpty()) {
             usersString.split(",").map { user ->
                 val userDetails = user.split(":")
-                if (userDetails.size == 4) {
+                if (userDetails.size == 5) {
                     mapOf(
                         "email" to userDetails[0],
                         "password" to userDetails[1],
                         "cardNumber" to userDetails[2],
-                        "fullname" to userDetails[3]
+                        "fullname" to userDetails[3],
+                        "balance" to userDetails[4]
                     )
                 } else {
                     emptyMap()
