@@ -1,19 +1,181 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/account_balance_24px"
+        android:paddingBottom="30dp"
+        android:layout_gravity="center"
+        />
+
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Mobile Banking"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:paddingBottom="30dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_gravity="center"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/cardviewlike_background"
+        android:padding="30dp"
+        android:layout_marginTop="12dp"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Holder:"
+                android:textSize="26sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/account_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="John Doe"
+                android:textSize="24sp"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account Number:"
+                android:textSize="26sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/account_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1234 5678 9012 3456"
+                android:textSize="24sp"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#4791db"
+            android:layout_marginVertical="8dp"
+            android:layout_marginBottom="6dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Balance:"
+                android:textSize="26sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/current_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$1000.00"
+                android:textSize="24sp"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/amount_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter amount"
+        android:textSize="25sp"
+        android:padding="18dp"
+        android:background="@drawable/edit_text_background"
+        android:layout_marginTop="42dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deposit_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/arrow_upward_24px"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            app:iconGravity="top"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@null"
+            android:text="Deposit"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/withdraw_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/arrow_downward_24px"
+            app:iconGravity="top"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@null"
+            android:text="Withdraw"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/transfer_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:icon="@drawable/sync_alt_24px"
+            app:iconGravity="top"
+            android:textColor="@color/black"
+            android:background="@drawable/button_background"
+            app:backgroundTint="@null"
+            android:text="Transfer"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/select_transaction_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Transaction"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/holo_blue_dark"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

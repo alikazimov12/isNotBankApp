@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
-        android:padding="15dp"
+        android:padding="20dp"
         android:background="@drawable/edit_text_background"
         android:layout_marginBottom="16dp" />
 
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="15dp"
+        android:padding="20dp"
         android:background="@drawable/edit_text_background"
         android:layout_marginBottom="24dp" />
 
