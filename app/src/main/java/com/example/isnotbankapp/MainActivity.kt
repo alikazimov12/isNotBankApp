@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var depositButton: MaterialButton
     private lateinit var withdrawButton: MaterialButton
     private lateinit var transferButton: MaterialButton
-    private lateinit var selectTransactionButton: MaterialButton
+    private lateinit var confirmTransferButton: MaterialButton
     private lateinit var recipientCardNumberInput: EditText
 
     private var currentBalance = 0.00
@@ -35,10 +35,11 @@ class MainActivity : AppCompatActivity() {
         depositButton = findViewById(R.id.deposit_button)
         withdrawButton = findViewById(R.id.withdraw_button)
         transferButton = findViewById(R.id.transfer_button)
-        selectTransactionButton = findViewById(R.id.select_transaction_button)
+        confirmTransferButton = findViewById(R.id.confirm_transfer_button)
         recipientCardNumberInput = findViewById(R.id.recipient_card_number)
 
         recipientCardNumberInput.visibility = View.GONE
+        confirmTransferButton.visibility = View.GONE
 
         cardNumber = intent.getStringExtra("cardNumber")
 
@@ -64,11 +65,11 @@ class MainActivity : AppCompatActivity() {
 
         transferButton.setOnClickListener {
             recipientCardNumberInput.visibility = View.VISIBLE
-            handleTransaction("transfer")
+            confirmTransferButton.visibility = View.VISIBLE
         }
 
-        selectTransactionButton.setOnClickListener {
-            Toast.makeText(this, "Transaction selection clicked", Toast.LENGTH_SHORT).show()
+        confirmTransferButton.setOnClickListener {
+            handleTransaction("transfer")
         }
     }
 
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val amount = amountText.toDouble()
+        val senderCardNumber = cardNumber ?: return  // Make sure we have a valid card number
 
         when (transactionType) {
             "deposit" -> {
@@ -104,6 +106,11 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
 
+                if (recipientCardNumber == senderCardNumber) {
+                    Toast.makeText(this, "You cannot transfer money to yourself", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
                 val recipientUser = getUserByCardNumber(this, recipientCardNumber)
                 if (recipientUser != null) {
                     if (amount <= currentBalance) {
@@ -111,7 +118,9 @@ class MainActivity : AppCompatActivity() {
                         val recipientBalance = recipientUser["balance"]?.toDouble() ?: 0.00
                         val newRecipientBalance = recipientBalance + amount
 
+                        updateUserBalance(this, senderCardNumber, currentBalance)
                         updateUserBalance(this, recipientCardNumber, newRecipientBalance)
+
                         Toast.makeText(this, "Transferred $$amount to ${recipientUser["fullName"]}", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, "Insufficient funds for transfer", Toast.LENGTH_SHORT).show()
@@ -124,11 +133,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        updateUserBalance(this, cardNumber!!, currentBalance)
+        updateUserBalance(this, senderCardNumber, currentBalance)
         currentBalanceTextView.text = "$$currentBalance"
         amountInput.text?.clear()
         recipientCardNumberInput.text?.clear()
         recipientCardNumberInput.visibility = View.GONE
+        confirmTransferButton.visibility = View.GONE
     }
 
     private fun getUserByCardNumber(context: Context, cardNumber: String): Map<String, String>? {

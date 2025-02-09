@@ -192,10 +192,10 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/select_transaction_button"
+        android:id="@+id/confirm_transfer_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Transaction"
+        android:text="Confirm Transaction"
         android:layout_marginTop="16dp"
         android:padding="16sp"
         android:background="@drawable/custom_button_background"
