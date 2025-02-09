@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recipientCardNumberInput: EditText
 
     private var currentBalance = 0.00
+    private var cardNumber: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +40,14 @@ class MainActivity : AppCompatActivity() {
 
         recipientCardNumberInput.visibility = View.GONE
 
-        val cardNumber = intent.getStringExtra("cardNumber")
+        cardNumber = intent.getStringExtra("cardNumber")
 
         if (cardNumber != null) {
-            val user = getUserByCardNumber(this, cardNumber)
+            val user = getUserByCardNumber(this, cardNumber!!)
             if (user != null) {
                 accountHolderTextView.text = user["fullName"]
                 accountNumberTextView.text = user["cardNumber"]
-                currentBalance = user["balance"]?.toDouble()!!
+                currentBalance = user["balance"]?.toDouble() ?: 0.00
                 currentBalanceTextView.text = "$$currentBalance"
             } else {
                 Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show()
@@ -92,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Withdrew $$amount", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Insufficient funds", Toast.LENGTH_SHORT).show()
+                    return
                 }
             }
             "transfer" -> {
@@ -108,20 +110,21 @@ class MainActivity : AppCompatActivity() {
                         currentBalance -= amount
                         val recipientBalance = recipientUser["balance"]?.toDouble() ?: 0.00
                         val newRecipientBalance = recipientBalance + amount
+
                         updateUserBalance(this, recipientCardNumber, newRecipientBalance)
-
-                        updateUserBalance(this, intent.getStringExtra("cardNumber")!!, currentBalance)
-
                         Toast.makeText(this, "Transferred $$amount to ${recipientUser["fullName"]}", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(this, "Insufficient funds for transfer", Toast.LENGTH_SHORT).show()
+                        return
                     }
                 } else {
                     Toast.makeText(this, "Recipient not found", Toast.LENGTH_SHORT).show()
+                    return
                 }
             }
         }
 
+        updateUserBalance(this, cardNumber!!, currentBalance)
         currentBalanceTextView.text = "$$currentBalance"
         amountInput.text?.clear()
         recipientCardNumberInput.text?.clear()
@@ -129,8 +132,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getUserByCardNumber(context: Context, cardNumber: String): Map<String, String>? {
-        val users = getUsers(context)
-        return users.find { it["cardNumber"] == cardNumber }
+        return getUsers(context).find { it["cardNumber"] == cardNumber }
     }
 
     private fun getUsers(context: Context): List<Map<String, String>> {
@@ -159,8 +161,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUserBalance(context: Context, cardNumber: String, newBalance: Double) {
         val users = getUsers(context).toMutableList()
-
         val userToUpdate = users.find { it["cardNumber"] == cardNumber }
+
         if (userToUpdate != null) {
             users.remove(userToUpdate)
 
@@ -179,6 +181,7 @@ class MainActivity : AppCompatActivity() {
         val usersString = users.joinToString(",") { user ->
             "${user["email"]}:${user["password"]}:${user["cardNumber"]}:${user["fullName"]}:${user["balance"]}"
         }
+
         sharedPreferences.edit().putString("users", usersString).apply()
     }
 }
