@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.isnotbankapp"
+    namespace = "com.example.bankapp"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.isnotbankapp"
+        applicationId = "com.example.bankapp"
         minSdk = 30
         targetSdk = 35
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.example.isnotbankapp
+package com.example.bankapp
 
 import android.content.Context
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.example.isnotbankapp
+package com.example.bankapp
 
 import android.content.Context
 import android.os.Bundle
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val amount = amountText.toDouble()
-        val senderCardNumber = cardNumber ?: return  // Make sure we have a valid card number
+        val senderCardNumber = cardNumber ?: return
 
         when (transactionType) {
             "deposit" -> {
